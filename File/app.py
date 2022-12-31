@@ -12,6 +12,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from sklearn.model_selection import train_test_split 
 from sklearn.tree import DecisionTreeClassifier
+from collections import Counter
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
@@ -162,25 +163,36 @@ pH = st.sidebar.slider("pH:", 0.0, 1.0, 0.5)
 sulphates = st.sidebar.slider("Sulphates:", 0.0, 1.0, 0.5)
 alcohol = st.sidebar.slider("Alcohol:", 0.0, 1.0, 0.5)
 
-####### Visualization by getting user inputs from the slider #####  
+################################################################
+# Visualization by getting user inputs from the slider 
+################################################################ 
 
-def load_trained_model():
-    # Load the trained model from a file
-    model = tf.keras.models.load_model("path/to/trained/model.h5")
+# Define the train_model function
+def train_model():
+    # Define the model architecture
+    inputs = tf.keras.Input(shape=(num_feat))
+    x = tf.keras.layers.Dense(64, activation='relu')(inputs)
+    x = tf.keras.layers.Dense(num_feat, activation='relu')(x)
+    outputs = tf.keras.layers.Dense(1, activation='sigmoid')(x)
+
+    model = tf.keras.Model(inputs = inputs, outputs = outputs)
+
+    # Compile the model
+    model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+    # Train the model
+    batch_size = 32
+    epochs = 10
+    history = model.fit(X_train, y_train, validation_split=0.2, batch_size = batch_size, epochs = epochs)
+
+    # Evaluate the model
+    model.evaluate(X_test, y_test)
+
+    # Return the trained model
     return model
 
-def map_prediction_to_label(prediction):
-    # Map the prediction to a quality label
-    if prediction == 0:
-        return "Low"
-    elif prediction == 1:
-        return "High"
-
-
-
-
-# Load the trained model
-model = load_trained_model()
+# Train the model
+model = train_model()
 
 # Create a data frame with the values from the sliders
 input_data = pd.DataFrame({
@@ -197,12 +209,56 @@ input_data = pd.DataFrame({
     "alcohol": [alcohol]
 })
 
+# Define the map_prediction_to_label function
+def map_prediction_to_label(prediction):
+    """Map a prediction to a quality label.
+
+    Args:
+        prediction (int): The prediction to map to a label.
+
+    Returns:
+        str: The label corresponding to the prediction.
+    """
+     # Determine the quality label based on the values of the sliders
+    if prediction == 1 and fixed_acidity < 7 and volatile_acidity < 0.5 and citric_acid > 0.2 and residual_sugar < 1 and chlorides < 0.06 and free_sulfur_dioxide > 20 and total_sulfur_dioxide > 50 and density > 0.99 and pH > 3 and sulphates > 0.5 and alcohol > 9:
+        return "High"
+    elif prediction == 1 and fixed_acidity < 7 and volatile_acidity < 0.5 and citric_acid > 0.2 and residual_sugar < 1 and chlorides < 0.06 and free_sulfur_dioxide > 20 and total_sulfur_dioxide > 50 and density > 0.99 and pH > 3 and sulphates > 0.5 and alcohol > 6:
+        return "Average"
+    else:
+        return "Low"
+
 # Use the model to make a prediction on the input data
 prediction = model.predict(input_data)
 
-# Map the prediction to a quality label (e.g. 0 -> "Low", 1 -> "Average", 2 -> "High")
+# Round the predicted values to the nearest integer
+prediction = np.round(prediction)
+
+# Map the prediction to a quality label
 quality_label = map_prediction_to_label(prediction)
 
 # Display the predicted quality label on the Streamlit app
-st.write("Predicted quality:", quality_label)
+st.write("Wine quality:", quality_label)
+
+################################################################
+#Displaying the result as barchart 
+################################################################
+# Use the model to make a prediction on the input data
+prediction = model.predict(input_data)
+
+# Round the predicted values to the nearest integer
+prediction = np.round(prediction)
+
+# Map the prediction to a quality label
+quality_labels = []
+for p in prediction:
+    quality_labels.append(map_prediction_to_label(p))
+
+# Count the number of predictions for each quality label
+counts = dict(Counter(quality_labels))
+
+# Create a dataframe from the counts
+counts_df = pd.DataFrame({'Quality': list(counts.keys()), 'Count': list(counts.values())})
+
+# Display the counts as a bar chart
+st.bar_chart(counts_df)
 
