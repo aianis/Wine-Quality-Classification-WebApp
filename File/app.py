@@ -19,6 +19,9 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+import sys
+print(sys.path)
+
 
 
 df = pd.read_csv(r"C:\Users\USER\OneDrive - Ming Chuan University\uni\ML_fall\hw files\second\File\winequality-white.csv", delimiter=';')
