@@ -1,3 +1,7 @@
+#Student Name: Anisjon Berdiev
+#Student ID: 09890314
+#The app is deployed on my github: https://aianis-wine-quality-classification-webapp-fileapp-mj2agb.streamlit.app/
+# You can also git clone directlty from here: https://github.com/aianis/Wine-Quality-Classification-WebApp.git
 
 import pandas as pd 
 import tensorflow as tf
