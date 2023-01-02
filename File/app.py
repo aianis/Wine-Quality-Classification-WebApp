@@ -28,7 +28,7 @@ print(sys.path)
 
 
 
-df = pd.read_csv(r"C:\Users\USER\OneDrive - Ming Chuan University\uni\ML_fall\hw files\second\File\winequality-white.csv", delimiter=';')
+df = pd.read_csv(r"File/winequality-white.csv", delimiter=';')
 print(df.head(5))
 
 #checking if there NULLs if there we need to clean it
