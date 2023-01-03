@@ -120,7 +120,7 @@ To use the app, simply visit the app by clicking the streamlit badge in the 1.1 
 ## 3. Data Visualization & Features
 
 1. **Lets get sippin' that fine wine!**
-   ![fine wine](DataVis/Screenshot(34).png)
+   ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/tree/main/DataVis/Screenshot(34).png)
 2. **Data**
    ![fine wine](DataVis/Screenshot(35).png)
 
