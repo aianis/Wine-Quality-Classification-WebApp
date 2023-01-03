@@ -130,10 +130,10 @@ To use the app, simply visit the app by clicking the streamlit badge in the 1.1 
 4. **Area Chart**
    ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/blob/main/DataVis/Screenshot%20(38).png)
 
-5. **Pei Chart**
+5. **Bar Chart**
    ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/blob/main/DataVis/Screenshot%20(39).png)
 6. **Heatmaps**
-   ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/blob/main/DataVis/Screenshot%20(40).png)
+   ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/blob/main/DataVis/Screenshot%20(42).png)
 
 7. **Quality Predcition Results**
    ![fine wine](https://github.com/aianis/Wine-Quality-Classification-WebApp/blob/main/DataVis/Screenshot%20(41).png)
