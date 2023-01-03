@@ -28,7 +28,7 @@ print(sys.path)
 
 
 
-df = pd.read_csv(r"C:\Users\USER\OneDrive - Ming Chuan University\uni\ML_fall\hw files\second\File\winequality-white.csv", delimiter=';')
+df = pd.read_csv(r"File/winequality-white.csv", delimiter=';')
 print(df.head(5))
 
 #checking if there NULLs if there we need to clean it
@@ -120,7 +120,7 @@ print(report)
 ########################################################################
 st.title('Wine Quality Prediction  Web App')
 
-image = Image.open(r"C:\Users\USER\OneDrive - Ming Chuan University\uni\ML_fall\hw files\second\File\wine_image.png")
+image = Image.open(r"File/wine_image.png")
 
 # Display the image in the app
 st.image(image, caption='Wine image by Unsplash', use_column_width=True)
